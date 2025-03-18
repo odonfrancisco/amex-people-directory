@@ -1,9 +1,9 @@
 export type PeopleResults = {
   info: { page: number; results: number; seed: string; version: string }
-  results: PersonData[]
+  results: Person[]
 }
 
-export type PersonData = {
+export type Person = {
   name: Name
   location: Location
   email: string
@@ -12,17 +12,11 @@ export type PersonData = {
   picture: Picture
 }
 
-export type Person = {
-  name: string
-  picture: Picture
-  age: number
-  city: string
-}
-
 export type Name = {
   title: string
   first: string
   last: string
+  full: string
 }
 
 export type Location = {
