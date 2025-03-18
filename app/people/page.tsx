@@ -1,7 +1,7 @@
 import { getPeople } from '@/app/lib/data'
 import PeopleWrapper from '@/app/ui/people'
 
-export default async function page() {
+export default async function Page() {
   const { results } = await getPeople()
 
   return (
