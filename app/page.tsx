@@ -7,8 +7,8 @@ export default function Home() {
       <p>Here you will get a chance to view our folks and learn more details about each one.</p>
       <p>
         Feel free to click{' '}
-        <Link href="/people" className="bg-blue-800">
-          Here
+        <Link href="/people">
+          <span className="text-amexBlue">Here</span>
         </Link>{' '}
         to explore or click -People- on the lefthand navigation
       </p>

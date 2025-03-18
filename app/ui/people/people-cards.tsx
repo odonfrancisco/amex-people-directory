@@ -52,8 +52,8 @@ export function PersonCard({ person }: { person: Person }) {
             height="128"
             className="hidden lg:block"
           />
-          <h3 className="ml-2 text-sm font-medium">{name.full}</h3>
         </div>
+        <h3 className="ml-2 text-2xl font-medium">{name.full}</h3>
         <p className="truncate rounded-xl bg-white px-4 py-8 text-center text-2xl">{dob.age}</p>
         <p className="truncate rounded-xl bg-white px-4 py-8 text-center text-2xl">
           {location.city}
