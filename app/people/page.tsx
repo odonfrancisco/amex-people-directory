@@ -1,5 +1,5 @@
 import { getPeople } from '@/app/lib/data'
-import PeopleWrapper from '@/app/ui/people'
+import PeopleWrapper from '@/app/ui/people/people-cards'
 
 export default async function Page() {
   const { results } = await getPeople()

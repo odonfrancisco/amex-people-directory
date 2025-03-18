@@ -25,6 +25,7 @@ export function PersonCard({ person }: { person: Person }) {
     <Link
       href={{
         pathname: `/people/${name.full.replaceAll(' ', '-')}`,
+        // While this is a simple solution, it does make for ugly URLS. Would not use this method for sensitive data
         query: { person: JSON.stringify(person) },
       }}
     >
