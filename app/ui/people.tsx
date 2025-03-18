@@ -25,8 +25,7 @@ export function PersonCard({ person }: { person: Person }) {
     <Link
       href={{
         pathname: `/people/${name.full.replaceAll(' ', '-')}`,
-        query: JSON.stringify(person),
-        // query: { data: person },
+        query: { person: JSON.stringify(person) },
       }}
     >
       <div className="rounded-xl bg-gray-50 p-2 shadow-sm">

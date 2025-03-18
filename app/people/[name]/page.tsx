@@ -2,8 +2,13 @@ import Image from 'next/image'
 
 import { Person } from '@/app/lib/definitions'
 
-export default function Page({ searchParams }: { searchParams: { details: string } }) {
-  const person: Person = JSON.parse(searchParams.details)
+export default async function Page({
+  searchParams,
+}: {
+  searchParams: Promise<{ person: string }>
+}) {
+  const params = await searchParams
+  const person: Person = JSON.parse(params.person)
   const { name, dob, location, picture, email, phone } = person
 
   return (
