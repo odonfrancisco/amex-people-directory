@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-import { Person } from '@/app/lib/definitions'
+import { Person } from '@/src/lib/definitions'
 
 export function PersonDetails({ person }: { person: Person }) {
   const { name, dob, location, picture, email, phone } = person

@@ -1,6 +1,6 @@
 import Image from 'next/image'
 
-// import { lusitana } from '@/app/ui/fonts'
+// import { lusitana } from '@/src/styles/fonts'
 
 export default function AmexLogo() {
   return (

@@ -1,6 +1,6 @@
 import got from 'got'
 
-import { PeopleResults, Person } from '@/app/lib/definitions'
+import { PeopleResults, Person } from '@/src/lib/definitions'
 
 const BASE_URL = 'https://randomuser.me/api/'
 const QUERY_PARAMS = 'inc=picture,name,dob,location,email,phone'
