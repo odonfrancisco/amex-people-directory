@@ -2,14 +2,14 @@ import { Person } from '@/src/lib/definitions'
 import { createContext, useContext, useState, ReactNode } from 'react'
 
 type PeopleContextType = {
-  selectedPerson: Person
+  selectedPerson: Person | null
   setSelectedPerson: (person: Person) => void
 }
 
 const PeopleContext = createContext<PeopleContextType | undefined>(undefined)
 
 export function PeopleProvider({ children }: { children: ReactNode }) {
-  const [selectedPerson, setSelectedPerson] = useState<Person>(null)
+  const [selectedPerson, setSelectedPerson] = useState<Person | null>(null)
 
   return (
     <PeopleContext.Provider value={{ selectedPerson, setSelectedPerson }}>

@@ -5,6 +5,7 @@ import PeopleWrapper from '@/src/components/people/people-cards'
 import { Person } from '@/src/lib/definitions'
 import { usePeople } from '@/src/context/PeopleContext'
 import Pagination from '@/src/components/people/pagination'
+import { getSessionCookie, setSessionCookie } from '@/src/lib/cookies'
 
 export default function People({ people, currentPage }: { people: Person[]; currentPage: number }) {
   const { setSelectedPerson } = usePeople()
@@ -20,9 +21,19 @@ export default function People({ people, currentPage }: { people: Person[]; curr
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, req, res }) => {
   const page = parseInt(query.page as string) || 1
-  const res = await getPeople(page)
+  const limit = 10
 
-  return { props: { people: res.results, currentPage: page } }
+  const dataKey = `people-list-page${page}-limit${limit}`
+  const storedData = getSessionCookie(req, dataKey)
+  if (storedData) {
+    return { props: { people: storedData.results, currentPage: page } }
+  }
+
+  const peopleData = await getPeople({ page, limit })
+  // Not saving peopleData past page 10 so as to not bloat cookies
+  if (page < 11) setSessionCookie(res, dataKey, peopleData)
+
+  return { props: { people: peopleData.results, currentPage: page } }
 }
