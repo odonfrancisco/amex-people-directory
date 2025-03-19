@@ -8,9 +8,7 @@ export function PersonDetails({ person }: { person: Person }) {
   return (
     <div>
       <h1>Person Details</h1>
-      {!person.name ? (
-        <p>No Person Selected</p>
-      ) : (
+      {
         <>
           <Image
             src={picture.thumbnail}
@@ -54,7 +52,7 @@ export function PersonDetails({ person }: { person: Person }) {
             <strong>Phone Number:</strong> {phone}
           </p>
         </>
-      )}
+      }
     </div>
   )
 }

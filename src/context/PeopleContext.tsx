@@ -19,6 +19,7 @@ export function PeopleProvider({ children }: { children: ReactNode }) {
 }
 
 // Why is this called usePeople?
+// use people context is my guess.
 export function usePeople() {
   const context = useContext(PeopleContext)
   if (!context) throw new Error('usePeople must be used within a PeopleProvider')
