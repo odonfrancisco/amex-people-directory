@@ -11,7 +11,7 @@ export default function People({ people, currentPage }: { people: Person[]; curr
     !people || !people.length ? (
       <p>No people provided on page {currentPage}</p>
     ) : (
-      <PeopleWrapper people={people} />
+      <PeopleWrapper people={people} page={currentPage} />
     )
 
   return (

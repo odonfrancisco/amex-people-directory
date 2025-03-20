@@ -6,7 +6,7 @@ import { Person } from '@/src/lib/definitions'
 import { getPerson } from '@/src/lib/data'
 import { makeHostUrl } from '@/src/lib/getHostUrl'
 
-export default function Page({ person }: { person: Person }) {
+export default function Page({ person, page }: { person: Person; page: number }) {
   if (!person)
     return (
       <p>
@@ -14,18 +14,19 @@ export default function Page({ person }: { person: Person }) {
       </p>
     )
 
-  return <PersonDetails person={person} />
+  return <PersonDetails person={person} page={page} />
 }
 
 export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   const hostUrl = makeHostUrl(req)
   const personIdMatch = req.url && req.url.match(/\/people\/([a-f0-9]{24})/)
   const personId = personIdMatch && personIdMatch[1]
+  const page = parseInt(query.page as string)
 
   // Possible to run app without mongodb which would change the url to their name
   if (personId) {
     const dbPerson = await getPerson({ query: { _id: personId }, hostUrl })
-    if (dbPerson) return { props: { person: dbPerson } }
+    if (dbPerson) return { props: { person: dbPerson, page } }
   }
 
   const personData = query.person as string
@@ -34,5 +35,5 @@ export const getServerSideProps: GetServerSideProps = async ({ query, req }) => 
 
   const person: Person = JSON.parse(personData)
 
-  return { props: { person } }
+  return { props: { person, page } }
 }

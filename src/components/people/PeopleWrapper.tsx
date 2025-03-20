@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 import { Person } from '@/src/lib/definitions'
 
-export default function PeopleWrapper({ people }: { people: Person[] }) {
+export default function PeopleWrapper({ people, page }: { people: Person[]; page: number }) {
   return (
     <>
       {/* I believe I don't need to set the param type as Person here since it's already set on line 5 */}
@@ -13,6 +13,7 @@ export default function PeopleWrapper({ people }: { people: Person[] }) {
         people.map(person => (
           <PersonCard
             person={person}
+            page={page}
             key={person._id || `${person.name.full}-${person.location.city}`}
           />
         ))
@@ -23,7 +24,7 @@ export default function PeopleWrapper({ people }: { people: Person[] }) {
 
 // Hmm, I'm passing down the setSelectedPerson 3 components deep... there's gotta be a cleaner way
 // The reason I'm not importing it directly into this file is because I assume that contexts can only be imported within app folder files or pages folder files... i'll have to test this and see
-export function PersonCard({ person }: { person: Person }) {
+export function PersonCard({ person, page }: { person: Person; page: number }) {
   const { name, picture, dob, location } = person
 
   return (
@@ -33,7 +34,8 @@ export function PersonCard({ person }: { person: Person }) {
         // While this is a simple solution, it does make for ugly URLS. Would not use this method for sensitive data
         //(fixed) Honestly using a DB would be cleaner... just seems weird for this use case. Would also be better to save all the people data in db rather than cookies, it's not scalable
         // Keeping for demo purposes (app works with & without DB cnx)
-        query: { person: JSON.stringify(person) },
+        // Technically the page prop already exists within the person object but this is to ensure this works even if that were not the case
+        query: { person: JSON.stringify(person), page },
       }}
     >
       <div className="rounded-xl bg-gr2ay-50 p-2 shadow-sm min-h-full">

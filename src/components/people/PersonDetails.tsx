@@ -1,8 +1,9 @@
 import Image from 'next/image'
+import Link from 'next/link'
 
 import { Person } from '@/src/lib/definitions'
 
-export function PersonDetails({ person }: { person: Person }) {
+export function PersonDetails({ person, page }: { person: Person; page: number }) {
   const { name, dob, location, picture, email, phone } = person
 
   return (
@@ -51,6 +52,9 @@ export function PersonDetails({ person }: { person: Person }) {
           <p>
             <strong>Phone Number:</strong> {phone}
           </p>
+          <Link href={`/people?page=${page}`} replace>
+            <span className="border rounded-lg p-1 bg-amexBlue text-white">Back</span>
+          </Link>
         </>
       }
     </div>
