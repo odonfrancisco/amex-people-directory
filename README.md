@@ -14,3 +14,6 @@ When access to the DB is present, navigating to the person details page will que
 There's a lot of room left for desire with the styling of everything, particularly in the person details page and the pagination arrows which need to not move around every time you change pages.
 
 I enjoyed working on this project and I'm eager for what's to come!
+
+Lighthouse Results:
+![Lighthouse Results](./public/lighthouse-screenshot.png?raw=true)
