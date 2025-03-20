@@ -5,7 +5,13 @@ import { PeopleResults, Person } from '@/src/lib/definitions'
 const BASE_URL = 'https://randomuser.me/api/'
 const QUERY_PARAMS = 'inc=picture,name,dob,location,email,phone'
 
-export async function getPeople({ page = 1, limit = 10 }: { page?: number; limit?: number }) {
+export async function getPeople({
+  page = 1,
+  limit = 10,
+}: {
+  page?: number
+  limit?: number
+}): Promise<PeopleResults | null> {
   try {
     const res: PeopleResults = await got(
       `${BASE_URL}?page=${page}&results=${limit}&${QUERY_PARAMS}`,
@@ -19,6 +25,7 @@ export async function getPeople({ page = 1, limit = 10 }: { page?: number; limit
     return { ...res, results: modifiedResults }
   } catch (error) {
     console.error(`Error fetching people: ${error}`)
-    throw Error('Error fetching people')
+
+    return null
   }
 }

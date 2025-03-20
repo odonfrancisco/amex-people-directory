@@ -10,12 +10,17 @@ import { getSessionCookie, setSessionCookie } from '@/src/lib/cookies'
 export default function People({ people, currentPage }: { people: Person[]; currentPage: number }) {
   const { setSelectedPerson } = usePeople()
 
+  const toDisplay =
+    !people || !people.length ? (
+      <p>No people provided on page {currentPage}</p>
+    ) : (
+      <PeopleWrapper people={people} setSelectedPerson={setSelectedPerson} />
+    )
+
   return (
     <main>
       <Pagination currentPage={currentPage} />
-      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">
-        <PeopleWrapper people={people} setSelectedPerson={setSelectedPerson} />
-      </div>
+      <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-5">{toDisplay}</div>
       <Pagination currentPage={currentPage} />
     </main>
   )
@@ -32,7 +37,9 @@ export const getServerSideProps: GetServerSideProps = async ({ query, req, res }
   }
 
   const peopleData = await getPeople({ page, limit })
-  // Not saving peopleData past page 10 so as to not bloat cookies
+  if (!peopleData) return { props: { people: peopleData, currentPage: page } }
+
+  // Not saving peopleData cookie past page 10 so as to not bloat cookies
   if (page < 11) setSessionCookie(res, dataKey, peopleData)
 
   return { props: { people: peopleData.results, currentPage: page } }
