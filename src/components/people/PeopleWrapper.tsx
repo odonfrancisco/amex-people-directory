@@ -13,8 +13,7 @@ export default function PeopleWrapper({ people }: { people: Person[] }) {
         people.map(person => (
           <PersonCard
             person={person}
-            // I want to use person.ID for key but not all people return a valid ID prop.
-            key={`${person.name}-${person.location.city}`}
+            key={person._id || `${person.name.full}-${person.location.city}`}
           />
         ))
       )}
@@ -30,13 +29,14 @@ export function PersonCard({ person }: { person: Person }) {
   return (
     <Link
       href={{
-        pathname: `/people/${name.full.replaceAll(' ', '-')}`,
+        pathname: `/people/${person._id || name.full}`,
         // While this is a simple solution, it does make for ugly URLS. Would not use this method for sensitive data
-        // Honestly using a DB would be cleaner... just seems weird for this use case. Would also be better to save all the people data in db rather than cookies, it's not scalable
+        //(fixed) Honestly using a DB would be cleaner... just seems weird for this use case. Would also be better to save all the people data in db rather than cookies, it's not scalable
+        // Keeping for demo purposes (app works with & without DB cnx)
         query: { person: JSON.stringify(person) },
       }}
     >
-      <div className="rounded-xl bg-gray-50 p-2 shadow-sm min-h-full">
+      <div className="rounded-xl bg-gr2ay-50 p-2 shadow-sm min-h-full">
         <div className="flex p-4 justify-center">
           <Image
             src={picture.thumbnail}

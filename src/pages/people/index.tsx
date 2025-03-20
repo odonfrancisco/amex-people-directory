@@ -1,10 +1,10 @@
 import { GetServerSideProps } from 'next'
 
 import { getPeople } from '@/src/lib/data'
-import PeopleWrapper from '@/src/components/people/people-cards'
+import PeopleWrapper from '@/src/components/people/PeopleWrapper'
 import { Person } from '@/src/lib/definitions'
-import Pagination from '@/src/components/people/pagination'
-import { getSessionCookie, setSessionCookie } from '@/src/lib/cookies'
+import Pagination from '@/src/components/people/Pagination'
+import { makeHostUrl } from '@/src/lib/getHostUrl'
 
 export default function People({ people, currentPage }: { people: Person[]; currentPage: number }) {
   const toDisplay =
@@ -23,21 +23,17 @@ export default function People({ people, currentPage }: { people: Person[]; curr
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async ({ query, req, res }) => {
+export const getServerSideProps: GetServerSideProps = async ({ query, req }) => {
   const page = parseInt(query.page as string) || 1
   const limit = 10
+  const hostUrl = makeHostUrl(req)
 
-  const dataKey = `people-list-page${page}-limit${limit}`
-  const storedData = getSessionCookie(req, dataKey)
-  if (storedData) {
-    return { props: { people: storedData.results, currentPage: page } }
-  }
-
-  const peopleData = await getPeople({ page, limit })
+  const peopleData = await getPeople({
+    page,
+    limit,
+    hostUrl,
+  })
   if (!peopleData) return { props: { people: peopleData, currentPage: page } }
 
-  // Not saving peopleData cookie past page 4 so as to not bloat cookies
-  if (page < 5) setSessionCookie(res, dataKey, peopleData)
-
-  return { props: { people: peopleData.results, currentPage: page } }
+  return { props: { people: peopleData, currentPage: page } }
 }

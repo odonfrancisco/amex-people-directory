@@ -4,6 +4,8 @@ export type PeopleResults = {
 }
 
 export type Person = {
+  // _id comes from DB
+  _id: string
   name: Name
   location: Location
   email: string
