@@ -27,11 +27,11 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
 
       <div className={`${geistSans.variable} ${geistMono.variable} antialiased`}>
         <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-          <div className="flex h-screen flex-col md:flex-row md:overflow-hidden">
-            <div className="w-full flex-none md:w-64">
-              <SideNav />
-            </div>
-            <div className="flex-grow p-6 md:overflow-y-auto md:p-12">
+          <div className="sm:w-full flex-none md:w-64">
+            <SideNav />
+          </div>
+          <div className="flex flex-grow max-w-full overflow-hidden">
+            <div className="w-full p-6 md:overflow-y-auto md:p-12">
               <PeopleProvider>
                 <Component {...pageProps} />
               </PeopleProvider>
