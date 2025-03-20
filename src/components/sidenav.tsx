@@ -1,6 +1,6 @@
 import Link from 'next/link'
-import NavLinks from '@/src/components/nav-links'
-import AmexLogo from '@/src/components/amex-logo'
+import NavLinks from '@/src/components/NavLinks'
+import AmexLogo from '@/src/components/AmexLogo'
 
 export default function SideNav() {
   return (

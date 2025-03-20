@@ -3,7 +3,7 @@ import { Geist, Geist_Mono } from 'next/font/google'
 import { AppProps } from 'next/app'
 import Head from 'next/head'
 
-import SideNav from '@/src/components/sidenav'
+import SideNav from '@/src/components/SideNav'
 import { PeopleProvider } from '@/src/context/PeopleContext'
 
 const geistSans = Geist({
