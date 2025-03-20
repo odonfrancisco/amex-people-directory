@@ -3,18 +3,15 @@ import { GetServerSideProps } from 'next'
 import { getPeople } from '@/src/lib/data'
 import PeopleWrapper from '@/src/components/people/people-cards'
 import { Person } from '@/src/lib/definitions'
-import { usePeople } from '@/src/context/PeopleContext'
 import Pagination from '@/src/components/people/pagination'
 import { getSessionCookie, setSessionCookie } from '@/src/lib/cookies'
 
 export default function People({ people, currentPage }: { people: Person[]; currentPage: number }) {
-  const { setSelectedPerson } = usePeople()
-
   const toDisplay =
     !people || !people.length ? (
       <p>No people provided on page {currentPage}</p>
     ) : (
-      <PeopleWrapper people={people} setSelectedPerson={setSelectedPerson} />
+      <PeopleWrapper people={people} />
     )
 
   return (
@@ -39,8 +36,8 @@ export const getServerSideProps: GetServerSideProps = async ({ query, req, res }
   const peopleData = await getPeople({ page, limit })
   if (!peopleData) return { props: { people: peopleData, currentPage: page } }
 
-  // Not saving peopleData cookie past page 10 so as to not bloat cookies
-  if (page < 11) setSessionCookie(res, dataKey, peopleData)
+  // Not saving peopleData cookie past page 4 so as to not bloat cookies
+  if (page < 5) setSessionCookie(res, dataKey, peopleData)
 
   return { props: { people: peopleData.results, currentPage: page } }
 }

@@ -3,13 +3,7 @@ import Link from 'next/link'
 
 import { Person } from '@/src/lib/definitions'
 
-export default function PeopleWrapper({
-  people,
-  setSelectedPerson,
-}: {
-  people: Person[]
-  setSelectedPerson: (person: Person) => void
-}) {
+export default function PeopleWrapper({ people }: { people: Person[] }) {
   return (
     <>
       {/* I believe I don't need to set the param type as Person here since it's already set on line 5 */}
@@ -21,7 +15,6 @@ export default function PeopleWrapper({
             person={person}
             // I want to use person.ID for key but not all people return a valid ID prop.
             key={`${person.name}-${person.location.city}`}
-            setSelectedPerson={setSelectedPerson}
           />
         ))
       )}
@@ -31,19 +24,17 @@ export default function PeopleWrapper({
 
 // Hmm, I'm passing down the setSelectedPerson 3 components deep... there's gotta be a cleaner way
 // The reason I'm not importing it directly into this file is because I assume that contexts can only be imported within app folder files or pages folder files... i'll have to test this and see
-export function PersonCard({
-  person,
-  setSelectedPerson,
-}: {
-  person: Person
-  setSelectedPerson: (person: Person) => void
-}) {
+export function PersonCard({ person }: { person: Person }) {
   const { name, picture, dob, location } = person
 
   return (
     <Link
-      href={`/people/${name.full.replaceAll(' ', '-')}`}
-      onClick={() => setSelectedPerson(person)}
+      href={{
+        pathname: `/people/${name.full.replaceAll(' ', '-')}`,
+        // While this is a simple solution, it does make for ugly URLS. Would not use this method for sensitive data
+        // Honestly using a DB would be cleaner... just seems weird for this use case. Would also be better to save all the people data in db rather than cookies, it's not scalable
+        query: { person: JSON.stringify(person) },
+      }}
     >
       <div className="rounded-xl bg-gray-50 p-2 shadow-sm min-h-full">
         <div className="flex p-4 justify-center">
