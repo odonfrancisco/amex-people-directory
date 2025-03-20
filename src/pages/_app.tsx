@@ -30,7 +30,7 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
           <div className="sm:w-full flex-none md:w-64">
             <SideNav />
           </div>
-          <div className="flex flex-grow max-w-full overflow-hidden">
+          <div className="flex flex-grow max-w-full overflow-y-scroll">
             <div className="w-full p-6 md:overflow-y-auto md:p-12">
               <PeopleProvider>
                 <Component {...pageProps} />
