@@ -1,36 +1,16 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+## Hi!
 
-## Getting Started
+This directory can run with or without a connection to a mongodb. Having a connection to mongodb ensures this can work offline.
 
-First, run the development server:
+I acknowledge I could've styled this much better. Not my forte though I'd enjoy taking a deep dive into properly styling a page.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+I actually went through a few phases in developing this. At first I had all my pages inside the app folder until I began working on pagination and realized I needed to access the url query for the page number. To prevent using javascript on the client I switched everything over to a pages folder.
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+You won't believe me when I say that I actually attempted to use cookies to store the people array for each page for this to work offline... 🤦
+Embarrasing, yes, and so I switched over to using a db to store all found people and display if saved.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+When access to the DB is present, navigating to the person details page will query them in the DB. However, if for whatever reason there is no mongodb cnx present (simple demo purposes), the entire user object is sent via url query params. Ugly.
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+There's a lot of room left for desire with the styling of everything, particularly in the person details page and the pagination arrows which need to not move around every time you change pages.
 
-## Learn More
-
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+I enjoyed working on this project and I'm eager for what's to come!
