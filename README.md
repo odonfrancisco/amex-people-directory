@@ -1,5 +1,13 @@
 ## Hi!
 
+### Instructions after cloning repo
+
+pnpm i
+pnpm build
+pnpm start
+
+Open localhost:3000 and check it out!
+
 This directory can run with or without a connection to a mongodb. Having a connection to mongodb ensures this can work offline.
 
 I acknowledge I could've styled this much better. Not my forte though I'd enjoy taking a deep dive into properly styling a page.
