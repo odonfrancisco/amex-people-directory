@@ -22,8 +22,6 @@ export default function PeopleWrapper({ people, page }: { people: Person[]; page
   )
 }
 
-// Hmm, I'm passing down the setSelectedPerson 3 components deep... there's gotta be a cleaner way
-// The reason I'm not importing it directly into this file is because I assume that contexts can only be imported within app folder files or pages folder files... i'll have to test this and see
 export function PersonCard({ person, page }: { person: Person; page: number }) {
   const { name, picture, dob, location } = person
 

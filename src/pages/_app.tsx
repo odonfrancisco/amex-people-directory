@@ -4,7 +4,6 @@ import { AppProps } from 'next/app'
 import Head from 'next/head'
 
 import SideNav from '@/src/components/SideNav'
-import { PeopleProvider } from '@/src/context/PeopleContext'
 
 const geistSans = Geist({
   variable: '--font-geist-sans',
@@ -32,9 +31,7 @@ export default function RootLayout({ Component, pageProps }: AppProps) {
           </div>
           <div className="flex flex-grow max-w-full overflow-y-scroll">
             <div className="w-full p-6 md:overflow-y-auto md:p-12">
-              <PeopleProvider>
-                <Component {...pageProps} />
-              </PeopleProvider>
+              <Component {...pageProps} />
             </div>
           </div>
         </div>
